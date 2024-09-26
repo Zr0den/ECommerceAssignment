@@ -17,19 +17,22 @@ public class ProductService
         // Populate the database with some products
         _repository.Add(new Product
         {
+            ProductId = 1
         });
         _repository.Add(new Product
         {
+            ProductId = 2
         });
         _repository.Add(new Product
         {
+            ProductId = 3
         });
     }
     
     public IEnumerable<Product> GetOrderProducts(int[] productIds)
     {
-        // TODO: Implement this method
-        return new List<Product>();
+        // DONE
+        return _repository.GetAll().Where(x => productIds.Contains(x.ProductId));
     }
     
     public IEnumerable<Product> GetProducts()
