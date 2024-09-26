@@ -7,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var easyNetQFactory = new EasyNetQFactory();
 
-// TODO: Add the appropriate messaging client to the service collection
+// DONE: Add the appropriate messaging client to the service collection
+builder.Services.AddSingleton<MessageClient<OrderResponseMessage>>(easyNetQFactory.CreateSendReceiveMessageClient<OrderResponseMessage>("StoreAPI").Connect());
 builder.Services.AddSingleton<MessageClient<OrderResponseMessage>>(easyNetQFactory.CreateTopicMessageClient<OrderResponseMessage>("StoreAPI", "").Connect());
 builder.Services.AddSingleton<MessageClient<OrderRequestMessage>>(easyNetQFactory.CreatePubSubMessageClient<OrderRequestMessage>("StoreAPI").Connect());
 
