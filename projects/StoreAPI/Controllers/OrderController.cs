@@ -46,7 +46,8 @@ public class OrderController : ControllerBase
         _orderRequestMessageClient.SendUsingTopic(new OrderRequestMessage
         {
             CustomerId = order.CustomerId,
-            Status = "Order received."
+            Status = "Order received.",
+            Orders = order.Orders,
         }, "newOrder");
         
         // Waits for 'OrderResponseMessage' using 'customerId' topic

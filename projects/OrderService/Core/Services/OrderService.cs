@@ -3,7 +3,7 @@ using Repository;
 
 namespace OrderService.Core.Services;
 
-// TODO: Modify this service as needed
+// DONE: Modify this service as needed
 public class OrderService
 {
     private readonly IRepository<Order> _repository;
