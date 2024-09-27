@@ -30,7 +30,7 @@ public class OrderService
         // Connect to the order completion topic
         Action<OrderResponseMessage> callback2 = HandleOrderCompletion;
         _orderCompletionClient.Connect();
-        _orderCompletionClient.ListenUsingTopic(callback2, "", "orderCompletion");
+        _orderCompletionClient.ListenUsingTopic(callback2, "ShippingService", "orderCompletion");
     }
 
     private void HandleNewOrder(OrderRequestMessage order)
@@ -56,8 +56,10 @@ public class OrderService
             }
 
             //Save the order in the database
+            var orderId = Guid.NewGuid().GetHashCode(); //We should be giving this through an identity in our database or something, not this but oh well
             _orderService.CreateOrder(new Order()
             {
+                OrderId = orderId,
                 CustomerId = order.CustomerId,
                 Status = order.Status,
                 OrderItems = orders
@@ -69,11 +71,12 @@ public class OrderService
             {
                 CustomerId = order.CustomerId,
                 Status = "Order started",
-                Orders = orders
+                Orders = orders,
+                OrderId = orderId
             };
 
             //Sending to stock service
-            _orderCompletionClient.SendUsingTopic(order, "Stock");
+            _orderCompletionClient.SendUsingTopic(orderResponse, "Stock");
 
             // Send the order completion to the customer using the customer ID as the topic
             //Console.WriteLine($"Sending order completion to customer {order.CustomerId}");

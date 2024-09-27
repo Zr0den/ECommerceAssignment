@@ -29,7 +29,7 @@ public class StockService
         // DONE: Start listening for new orders
         Action<OrderResponseMessage> callback = HandleNewOrder;
         _messageClient.Connect();
-        _messageClient.ListenUsingTopic(callback, "", "Stock");
+        _messageClient.ListenUsingTopic(callback, "Order", "Stock");
     }
 
     private void HandleNewOrder(OrderResponseMessage order)
@@ -51,7 +51,8 @@ public class StockService
             {
                 CustomerId = order.CustomerId,
                 Status = "Stock processed",
-                Orders = order.Orders
+                Orders = order.Orders,
+                OrderId = order.OrderId
             };
 
             // Send the order completion to the shipping service

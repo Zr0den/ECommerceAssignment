@@ -1,10 +1,10 @@
-﻿namespace OrderService
+namespace OrderService
 {
   class Program
   {
     static void Main(string[] args)
     {
-      var orderService = OrderServiceFactory.CreateOrderService();
+      var orderService = OrderServiceFactory.CreateOrderService("Order");
       orderService.Start();      
       
       Console.WriteLine("Order Service started. Press any key to exit.");

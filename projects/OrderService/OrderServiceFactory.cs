@@ -7,11 +7,11 @@ using MessageClient.Factory;
 
 public static class OrderServiceFactory
 {
-  public static OrderService CreateOrderService()
+  public static OrderService CreateOrderService(string clientId)
   {
     var easyNetQFactory = new EasyNetQFactory();
     var newOrderClient = easyNetQFactory.CreateTopicMessageClient<OrderRequestMessage>("OrderService", "newOrder");
-    var orderCompletionClient = easyNetQFactory.CreatePubSubMessageClient<OrderResponseMessage>("");
+    var orderCompletionClient = easyNetQFactory.CreatePubSubMessageClient<OrderResponseMessage>(clientId);
     
     var dataContext = new DataContext();
     var orderRepository = new OrderRepository(dataContext);

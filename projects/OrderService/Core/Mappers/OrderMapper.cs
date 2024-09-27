@@ -11,6 +11,7 @@ public class OrderRequestMapper : IMapper<OrderRequestMessage, Order>
     {
         return new OrderRequestMessage
         {
+            OrderId = model.OrderId,
             CustomerId = model.CustomerId,
             Status = model.Status,
         };
@@ -20,6 +21,7 @@ public class OrderRequestMapper : IMapper<OrderRequestMessage, Order>
     {
         return new Order
         {
+            OrderId = model.OrderId,
             CustomerId = model.CustomerId,
             Status = model.Status
         };
@@ -32,6 +34,7 @@ public class OrderResponseMapper : IMapper<OrderResponseMessage, Order>
     {
         return new OrderResponseMessage
         {
+            OrderId = model.OrderId,
             CustomerId = model.CustomerId,
             Status = model.Status
         };
@@ -41,6 +44,7 @@ public class OrderResponseMapper : IMapper<OrderResponseMessage, Order>
     {
         return new Order
         {
+            OrderId = model.OrderId,
             CustomerId = model.CustomerId,
             Status = model.Status
         };

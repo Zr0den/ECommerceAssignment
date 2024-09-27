@@ -17,7 +17,7 @@ public class ShippingService
         // DONE: Start listening for orders that need to be shipped
         Action<OrderResponseMessage> callback = HandleOrderShippingCalculation;
         _messageClient.Connect();
-        _messageClient.ListenUsingTopic(callback, "", "Calculate Shipping");
+        _messageClient.ListenUsingTopic(callback, "StockService", "Calculate Shipping");
     }
     
     private void HandleOrderShippingCalculation(OrderResponseMessage orderResponse)
@@ -35,7 +35,8 @@ public class ShippingService
         {
             CustomerId = orderResponse.CustomerId,
             Status = "Costs calculated",
-            Cost = cost
+            Cost = cost,
+            OrderId = orderResponse.OrderId
         };
 
         Console.WriteLine($"Sending processed order to OrderService {newOrderResponse.CustomerId}");

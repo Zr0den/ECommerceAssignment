@@ -1,10 +1,10 @@
-﻿namespace ShippingService
+namespace ShippingService
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var shippingService = ShippingServiceFactory.CreateShippingService("");
+            var shippingService = ShippingServiceFactory.CreateShippingService("ShippingService");
             shippingService.Start();
       
             Console.WriteLine("Shipping Service started. Press any key to exit.");
